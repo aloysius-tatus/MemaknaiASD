@@ -1,0 +1,97 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package insertion;
+
+import java.util.Scanner;
+
+class proses {
+    String[] data;
+    String[] kartu = {"As","2","3","4","5","6","7",
+                      "8","9","10","Jack","Queen","King"};
+    int [] dataInt;
+    int n ;
+    Scanner masuk = new Scanner(System.in);
+    
+    void setInput(){
+        System.out.print("Masukan jumlah kartu : ");
+        
+        n=masuk.nextInt();
+        data = new String[n];
+        dataInt = new int[n];
+        
+        if(n<1 || n>13 ){
+            System.out.println("Silahkan Ulangi");
+            setInput();
+        }
+    }
+     
+    void inputData(){
+        for (int i = 0; i < data.length; i++) {
+            do{
+                System.out.print("Masukkan kartu ke "+(i+1)+" : ");
+                data[i] = masuk.next();
+                if (!checking (data[i])) {
+                    System.out.println("Silahkan Ulangi : ");
+                }
+            }
+            while(!checking (data[i]));
+        }
+    }
+    
+    void tampil(){
+        for (int i = 0; i < data.length; i++) {
+            if (i == data.length-1 ){
+                System.out.print(data[i]+" ");
+            }
+            else{System.out.print(data[i]+" - ");}
+        }
+    }
+    
+    boolean checking(String data) {
+        boolean checking = false;
+        for (int i = 0; i < kartu.length; i++) {
+            if(data.equalsIgnoreCase(kartu[i]))
+            {
+                checking = true;
+            }
+        }
+        return checking;
+    }
+    
+    void setInteger(){
+        for (int i = 0; i < data.length; i++) {
+            if(data[i].equalsIgnoreCase("as")){dataInt[i]=1;}
+            else if(data[i].equalsIgnoreCase("jack")){dataInt[i]=11;}
+            else if(data[i].equalsIgnoreCase("queen")){dataInt[i]=12;}
+            else if(data[i].equalsIgnoreCase("king")){dataInt[i]=13;}
+            else{dataInt[i] = Integer.parseInt(data[i]);}
+        }
+    }
+    
+    void insertion(){
+        for (int i = 1; i < dataInt.length; i++){
+            int j = i;
+            int temp = dataInt[i];
+            while ((j > 0) && (dataInt[j-1] > temp)){
+                dataInt[j] = dataInt[j-1];
+                j--;
+            }
+            dataInt[j] = temp;
+        }
+    }
+    
+    void setString(){
+        for (int i = 0; i < dataInt.length; i++) {
+            if(dataInt[i]==1){data[i]="as";}
+            else if(dataInt[i]==11){data[i]="jack";}
+            else if(dataInt[i]==12){data[i]="queen";}
+            else if(dataInt[i]==13){data[i]="king";}
+            else{data[i] = Integer.toString(dataInt[i]);}   
+        }
+    }
+     
+}
